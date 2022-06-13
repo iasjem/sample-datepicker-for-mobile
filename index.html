@@ -12,52 +12,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-
-
     <div class="mb-3">
         <label for="myDatePicker" class="form-label">Date</label>
+        <input type="text" id="myDate" />
         <input class="form-control" type="text" id="myDatePicker" />
       </div>
       <div class="mb-3">
         <label for="myTimePicker" class="form-label">Time</label>
+        <input type="text" id="myTime" />
         <input class="form-control" type="text" id="myTimePicker" />
       </div>
-      <div class="mb-3">
-        <label for="myDatePicker2" class="form-label">Date</label>
-        <input class="form-control" type="text" id="myDatePicker" />
-      </div>
-      <div class="mb-3">
-        <label for="myTimePicker2" class="form-label">Time</label>
-        <input class="form-control" type="text" id="myTimePicker" />
-      </div>
+      <button id="clickBait">Click</button>
     <script type="text/javascript">
 
-        flatpickr("#myDatePicker", {
-            dateFormat: "m/d/Y",
+        let selectedDate = flatpickr("#myDatePicker", {
+            altFormat: "m/d/Y",
             disableMobile: "true",
-            defaultDate: new Date()
+            defaultDate: new Date(),
+            altInput: true,
+            minDate: 'today',
+            onChange: function(selectedDates, dateStr, instance) {
+                document.getElementById('myDate').value = dateStr;
+                console.log(dateStr)
+            }
         });
-        flatpickr("#myTimePicker", {
+        let selectedTime = flatpickr("#myTimePicker", {
             enableTime: true,
             noCalendar: true,
-            dateFormat: "H:i",
+            altInput: true,
+            altFormat: "H:i",
             time_24hr: true,
+            minDate: 'today',
             disableMobile: "true",
-            defaultDate: moment(new Date()).add(30, 'm').toDate()
+            defaultDate: moment(new Date()).add(30, 'm').toDate(),
+            onChange: function(selectedDates, dateStr, instance) {
+                document.getElementById('myTime').value = dateStr;
+                console.log(dateStr)
+            }
         });
-        flatpickr("#myDatePicker2", {
-            dateFormat: "m/d/Y",
-            disableMobile: "true",
-            defaultDate: new Date()
-        });
-        flatpickr("#myTimePicker2", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-            time_24hr: true,
-            disableMobile: "true",
-            defaultDate: moment(new Date()).add(30, 'm').toDate()
-        });
+
+
     </script>
 </body>
 </html>
