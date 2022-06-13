@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/rolldate@3.1.2/dist/rolldate.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" integrity="sha512-MQXduO8IQnJVq1qmySpN87QQkiR1bZHtorbJBD0tzy7/0U9+YIC93QWHeGTEoojMVHWWNkoCp8V6OzVSYrX0oQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -22,34 +23,84 @@
         <input type="text" id="myTime" />
         <input class="form-control" type="text" id="myTimePicker" />
       </div>
-      <button id="clickBait">Click</button>
     <script type="text/javascript">
+			// 自定义语言
+			var lang = {
+				title: 'Select date',
+				cancel: 'cancel',
+				confirm: 'confirm',
+				year: '',
+				month: '',
+				day: '',
+				hour: '',
+				min: '',
+				sec: ''
+			};
+			// 如果某个值未修改可不传 以上同 var lang = {title:'自定义标题'} 允许传空串
+			new Rolldate({
+				el: '#myDatePicker',
+				format: 'MM/DD/YYYY',
+				beginYear: new Date().getFullYear(),
+				lang: {
+                    title: 'Select date',
+                    cancel: 'cancel',
+                    confirm: 'confirm',
+                    year: '',
+                    month: '',
+                    day: '',
+                    hour: '',
+                    min: '',
+                    sec: ''
+                },
+                confirm: function(date) {
+                    document.getElementById('myDate').value = moment(new Date(date)).format("YYYY-MM-DD");
+				}
+			})
+            new Rolldate({
+				el: '#myTimePicker',
+				format: 'hh:mm',
+				minStep: 5,
+                lang: {
+                    title: 'Select time',
+                    cancel: 'cancel',
+                    confirm: 'confirm',
+                    year: '',
+                    month: '',
+                    day: '',
+                    hour: '',
+                    min: '',
+                    sec: ''
+                },
+                confirm: function(date) {
+                    document.getElementById('myTime').value = date;
+				}
+			})
 
-        let selectedDate = flatpickr("#myDatePicker", {
-            altFormat: "m/d/Y",
-            disableMobile: "true",
-            defaultDate: new Date(),
-            altInput: true,
-            minDate: 'today',
-            onChange: function(selectedDates, dateStr, instance) {
-                document.getElementById('myDate').value = dateStr;
-                console.log(dateStr)
-            }
-        });
-        let selectedTime = flatpickr("#myTimePicker", {
-            enableTime: true,
-            noCalendar: true,
-            altInput: true,
-            altFormat: "H:i",
-            time_24hr: true,
-            minDate: 'today',
-            disableMobile: "true",
-            defaultDate: moment(new Date()).add(30, 'm').toDate(),
-            onChange: function(selectedDates, dateStr, instance) {
-                document.getElementById('myTime').value = dateStr;
-                console.log(dateStr)
-            }
-        });
+        // let selectedDate = flatpickr("#myDatePicker", {
+        //     altFormat: "m/d/Y",
+        //     disableMobile: "true",
+        //     defaultDate: new Date(),
+        //     altInput: true,
+        //     minDate: 'today',
+        //     onChange: function(selectedDates, dateStr, instance) {
+        //         document.getElementById('myDate').value = dateStr;
+        //         console.log(dateStr)
+        //     }
+        // });
+        // let selectedTime = flatpickr("#myTimePicker", {
+        //     enableTime: true,
+        //     noCalendar: true,
+        //     altInput: true,
+        //     altFormat: "H:i",
+        //     time_24hr: true,
+        //     minDate: 'today',
+        //     disableMobile: "true",
+        //     defaultDate: moment(new Date()).add(30, 'm').toDate(),
+        //     onChange: function(selectedDates, dateStr, instance) {
+        //         document.getElementById('myTime').value = dateStr;
+        //         console.log(dateStr)
+        //     }
+        // });
 
 
     </script>
